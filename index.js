@@ -29,7 +29,12 @@ async function run (){
         })
 
 
-
+        app.get('/itemsProducts/:title', async (req, res ) => {
+            const title = req.params.title;
+            const filter = {catagoris: title }
+            const result = await allProductsCollection.find(filter).toArray()
+            res.send(result)
+        })
 
 
         
