@@ -37,6 +37,13 @@ async function run (){
         })
 
 
+        app.get('/allfood', async(req, res)=>{
+            const query = {}
+            const result = await allProductsCollection.find(query).toArray()
+            res.send(result)
+        })
+
+
         
     }finally{
 
