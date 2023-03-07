@@ -28,6 +28,12 @@ async function run (){
             res.send(result)
         })
 
+        app.get('/catagorisName', async (req, res)=> {
+            const filter = {}
+            const result= await allCatagorisCollection.find(filter).project({title: 1 } ).toArray()
+            res.send(result)
+        })
+
 
         app.get('/itemsProducts/:title', async (req, res ) => {
             const title = req.params.title;
