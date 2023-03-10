@@ -11,7 +11,7 @@ require('dotenv').config()
 
 
 
-const { MongoClient, ServerApiVersion } = require('mongodb');
+const { MongoClient, ServerApiVersion, ObjectId} = require('mongodb');
 const uri = `mongodb+srv://${process.env.USER_NAME}:${process.env.USER_PASS}@cluster0.hcgdznz.mongodb.net/?retryWrites=true&w=majority`;
 const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true, serverApi: ServerApiVersion.v1 });
 
@@ -81,11 +81,45 @@ async function run() {
         })
 
 
+        app.get('/cart', async(req, res)=>{
+            const query = {}
+            const result = await addToCartCollection.find(query).toArray()
+            res.send(result)
+        })
+
+
         app.get('/showcarts', async(req, res)=>{
             const email = req.query.email 
-            console.log(email)
+          
             const query = {email: email}
             const result = await addToCartCollection.find(query).toArray()
+            res.send(result)
+        })
+
+
+        app.patch('/quantityUpdate/:id', async(req, res)=>{
+            const id = req.params.id
+            console.log(id)
+            const query = {_id: new ObjectId(id)}
+            const updateQuantity = req.body.quantity
+            console.log(updateQuantity)
+            // const options = { upsert: true };
+            const updateDoc ={
+                $set: {
+                    quantity: updateQuantity
+                    
+                }
+            }
+            const result = await addToCartCollection.updateOne(query, updateDoc )
+            res.send(result)
+            
+        })
+
+
+        app.delete('/delete/:id', async(req, res)=>{
+            const id= req.params.id
+            const query =  {_id: new ObjectId(id)}
+            const result = await addToCartCollection.deleteOne(query)
             res.send(result)
         })
 
