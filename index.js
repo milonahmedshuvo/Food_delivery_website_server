@@ -102,11 +102,12 @@ async function run() {
             console.log(id)
             const query = {_id: new ObjectId(id)}
             const updateQuantity = req.body.quantity
+            const updatePrice = req.body.total
             console.log(updateQuantity)
-            // const options = { upsert: true };
             const updateDoc ={
                 $set: {
-                    quantity: updateQuantity
+                    quantity: updateQuantity,
+                    total: updatePrice
                     
                 }
             }
