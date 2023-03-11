@@ -136,6 +136,19 @@ async function run() {
             res.send(result)
         })
 
+        app.get("/wishlistsProducts", async (req, res)=> {
+            const email = req.query.email;
+            const filter = { email: email};
+            const result = await wishlistsProductsCollection.find(filter).toArray()
+            res.send(result)
+        })
+
+        app.delete("/wishlistsProducts/:id", async (req, res)=> {
+           const id= req.params.id;
+           const filter= {_id: new ObjectId(id) }
+           const result= await wishlistsProductsCollection.deleteOne(filter)
+           res.send(result)
+        })
 
     } finally {
 
