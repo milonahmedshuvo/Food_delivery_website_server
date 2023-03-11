@@ -21,6 +21,7 @@ async function run() {
         const allCatagorisCollection = client.db("foodDeliveryDatabase").collection("allCatagoris")
         const allProductsCollection = client.db("foodDeliveryDatabase").collection("allProducts")
         const addToCartCollection = client.db("foodDeliveryDatabase").collection("allAddToCart")
+        const wishlistsProductsCollection = client.db("foodDeliveryDatabase").collection("wishlistsProducts")
 
 
         app.get('/allCatagoris', async (req, res) => {
@@ -125,6 +126,15 @@ async function run() {
         })
 
 
+
+
+        //............. USER POST WISHLISTS PRODUCT IN DATABASE.................
+
+        app.post('/wishlistsProducts', async (req, res)=> {
+            const body = req.body;
+            const result= await wishlistsProductsCollection.insertOne(body)
+            res.send(result)
+        })
 
 
     } finally {
