@@ -22,6 +22,7 @@ async function run() {
         const allProductsCollection = client.db("foodDeliveryDatabase").collection("allProducts")
         const addToCartCollection = client.db("foodDeliveryDatabase").collection("allAddToCart")
         const wishlistsProductsCollection = client.db("foodDeliveryDatabase").collection("wishlistsProducts")
+        const subcribeOfferCollection = client.db("foodDeliveryDatabase").collection("subcribeOffer")
 
 
         app.get('/allCatagoris', async (req, res) => {
@@ -149,6 +150,15 @@ async function run() {
            const result= await wishlistsProductsCollection.deleteOne(filter)
            res.send(result)
         })
+
+
+
+        //.............User Subcribe offer in email.......................
+        app.post("/subcribeEmail", async (req, res)=> {
+            const body= req.body
+            const result= await subcribeOfferCollection.insertOne(body).toArray()
+            res.send(result)
+        }) 
 
     } finally {
 
