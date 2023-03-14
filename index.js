@@ -156,7 +156,7 @@ async function run() {
         //.............User Subcribe offer in email.......................
         app.post("/subcribeEmail", async (req, res)=> {
             const body= req.body
-            const result= await subcribeOfferCollection.insertOne(body).toArray()
+            const result= await subcribeOfferCollection.insertOne(body)
             res.send(result)
         }) 
 
